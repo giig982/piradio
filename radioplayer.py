@@ -11,8 +11,6 @@ os.environ["SDL_MOUSEDEV"] = "/dev/input/touchscreen"
 os.environ["SDL_MOUSEDRV"] = "TSLIB"
 pygame.init()
 
-
-
 def on_click():
 	"""define function that checks for mouse location"""
 	click_pos = (pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
