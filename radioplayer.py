@@ -7,9 +7,10 @@ import sys
 import pygame
 import datetime
 from pygame.locals import *
-#os.environ["SDL_FBDEV"] = "/dev/fb1"
+os.environ["SDL_FBDEV"] = "/dev/fb1"
 #os.environ["SDL_MOUSEDEV"] = "/dev/input/touchscreen"
-#os.environ["SDL_MOUSEDRV"] = "TSLIB"
+os.environ["SDL_MOUSEDEV"] = "/dev/input/event0"
+os.environ["SDL_MOUSEDRV"] = "TSLIB"
 pygame.init()
 
 def on_click():
