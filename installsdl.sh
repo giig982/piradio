@@ -9,6 +9,8 @@
 # https://learn.adafruit.com/adafruit-pitft-28-inch-resistive-touchscreen-display-raspberry-pi/pitft-pygame-tips
 # https://web.archive.org/web/20161021002514/https://forums.adafruit.com/viewtopic.php?f=47&t=76169&p=439894#p461430
 
+# Use this guide to calibrate http://www.armadeus.org/wiki/index.php?title=Tslib
+
 #enable wheezy package sources
 echo "deb http://archive.raspbian.org/raspbian wheezy main
 " > /etc/apt/sources.list.d/wheezy.list
