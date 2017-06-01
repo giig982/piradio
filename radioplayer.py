@@ -5,60 +5,65 @@ import os
 #import glob
 import sys
 import pygame
+import datetime
 from pygame.locals import *
-os.environ["SDL_FBDEV"] = "/dev/fb1"
-os.environ["SDL_MOUSEDEV"] = "/dev/input/touchscreen"
-os.environ["SDL_MOUSEDRV"] = "TSLIB"
+#os.environ["SDL_FBDEV"] = "/dev/fb1"
+#os.environ["SDL_MOUSEDEV"] = "/dev/input/touchscreen"
+#os.environ["SDL_MOUSEDRV"] = "TSLIB"
 pygame.init()
 
 def on_click():
 	"""define function that checks for mouse location"""
 	click_pos = (pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
 	#check to see if exit has been pressed
-	if 270 <= click_pos[0] <= 320 and 10 <= click_pos[1] <= 50:
+	if 428 <= click_pos[0] <= 480 and 10 <= click_pos[1] <= 50:
 		print "You pressed exit"
 		button(0)
 	#now check to see if play was pressed
-	if 20 <= click_pos[0] <= 70 and 80 <= click_pos[1] <= 130:
-                print "You pressed button play"
-                button(1)
+	if PLAY_PB_START <= click_pos[0] <= (PLAY_PB_START + 50) and \
+	PLAY_PB_END <= click_pos[1] <= (PLAY_PB_END + 50):
+		print "You pressed button play"
+		button(1)
 	#now check to see if stop  was pressed
-        if 80 <= click_pos[0] <= 135 and 80 <= click_pos[1] <= 130:
-                print "You pressed button stop"
-                button(2)
+	if PAUSE_PB_START <= click_pos[0] <= (PAUSE_PB_START + 50) and \
+	PAUSE_PB_END <= click_pos[1] <= (PAUSE_PB_END + 50):
+		print "You pressed button stop"
+		button(2)
 	#now check to see if refreshed  was pressed
-        if 270 <= click_pos[0] <= 320 and 70 <= click_pos[1] <= 120:
-                print "You pressed button refresh"
-                button(3)
+	if REFRESH_PB_START <= click_pos[0] <= REFRESH_PB_START + 50 and \
+	REFRESH_PB_END <= click_pos[1] <= REFRESH_PB_END + 50:
+		print "You pressed button refresh"
+		button(3)
 	#now check to see if previous  was pressed
-        if 10 <= click_pos[0] <= 60 and 180 <= click_pos[1] <= 230:
-                print "You pressed button previous"
-                button(4)
+	if PREVIOUS_PB_START <= click_pos[0] <= PREVIOUS_PB_START + 70 and \
+	PREVIOUS_PB_END <= click_pos[1] <= PREVIOUS_PB_END + 50:
+		print "You pressed button previous"
+		button(4)
 
 	 #now check to see if next  was pressed
-        if 70 <= click_pos[0] <= 120 and 180 <= click_pos[1] <= 230:
-                print "You pressed button next"
-                button(5)
+	if 90 <= click_pos[0] <= 140 and 180 <= click_pos[1] <= 230:
+		print "You pressed button next"
+		button(5)
 
 	 #now check to see if volume down was pressed
-        if 130 <= click_pos[0] <= 180 and 180 <= click_pos[1] <= 230:
-                print "You pressed volume down"
-                button(6)
+	if 150 <= click_pos[0] <= 200 and 180 <= click_pos[1] <= 230:
+		print "You pressed volume down"
+		button(6)
 
 	 #now check to see if button 7 was pressed
-        if 190 <= click_pos[0] <= 240 and 180 <= click_pos[1] <= 230:
-                print "You pressed volume up"
-                button(7)
+	if 210 <= click_pos[0] <= 260 and 180 <= click_pos[1] <= 230:
+		print "You pressed volume up"
+		button(7)
 
 	 #now check to see if button 8 was pressed
-        if 250 <= click_pos[0] <= 300 and 180 <= click_pos[1] <= 230:
-                print "You pressed mute"
-                button(8)
+	if 270 <= click_pos[0] <= 320 and 180 <= click_pos[1] <= 230:
+		print "You pressed mute"
+		button(8)
 
 	 #now check to see if button 9 was pressed
-        if 15 <= click_pos[0] <= 125 and 165 <= click_pos[1] <= 200:
-                print "You pressed button 9"
-                button(9)
+	if 15 <= click_pos[0] <= 125 and 165 <= click_pos[1] <= 200:
+		print "You pressed button 9"
+		button(9)
 
 
 
@@ -67,11 +72,10 @@ def button(number):
 	print "You pressed button ", number
 	if number == 0:    #specific script when exiting
 		SCREEN.fill(BLACK)
-		font = pygame.font.Font(None, 24)
-        	label = font.render("Radioplayer will continue in background", 1, (WHITE))
-        	SCREEN.blit(label, (0, 90))
+        	label = FONT.render("Radioplayer will continue in background", 1, (WHITE))
+        	SCREEN.blit(label, (30, 130))
 		pygame.display.flip()
-		time.sleep(5)
+		time.sleep(3)
 		sys.exit()
 
 	if number == 1:
@@ -110,14 +114,15 @@ def button(number):
 def refresh_menu_screen():
 	"""refresh screen and draw elements """
 	#set up the fixed items on the menu
-	SCREEN.fill(WHITE) #change the colours if needed
+	SCREEN.fill(BCKG_COLOR) #change the colours if needed
 	font = pygame.font.Font(None, 24)
 	title_font = pygame.font.Font(None, 34)
 	station_font = pygame.font.Font(None, 20)
 	label = title_font.render("MPC RADIO", 1, (BLUE))
-	label2 = font.render("Streaming Internet Radio", 1, (RED))
+	label2 = font.render("Streaming Radio", 1, (RED))
 	SCREEN.blit(label, (105, 15))
-	SCREEN.blit(label2, (88, 45))
+	SCREEN.blit(label2, (115, 45))
+
 
 	play_pb = pygame.image.load("play.tiff")
 	pause_pb = pygame.image.load("pause.tiff")
@@ -133,16 +138,19 @@ def refresh_menu_screen():
 	# draw the main elements on the screen
 	SCREEN.blit(play_pb, (20, 80))
 	SCREEN.blit(pause_pb, (80, 80))
-	pygame.draw.rect(SCREEN, RED, (8, 70, 304, 108), 1)
-	pygame.draw.line(SCREEN, RED, (8, 142), (310, 142), 1)
-	pygame.draw.rect(SCREEN, CREAM, (10, 143, 300, 33), 0)
-	SCREEN.blit(refresh_pb, (270, 70))
+	#pygame.draw.rect(SCREEN, RED, (8, 70, 304, 108), 1)
+	pygame.draw.rect(SCREEN, RED, (8, 70, 464, 108), 1)
+	pygame.draw.line(SCREEN, RED, (8, 142), (470, 142), 1)
+	pygame.draw.rect(SCREEN, YELLOW, (10, 143, 460, 33), 0)
+	SCREEN.blit(refresh_pb, (430, 70))
+
 	SCREEN.blit(previous_pb, (10, 180))
-	SCREEN.blit(next_pb, (70, 180))
-	SCREEN.blit(vol_down_pb, (130, 180))
-	SCREEN.blit(vol_up_pb, (190, 180))
-	SCREEN.blit(mute_pb, (250, 180))
-	SCREEN.blit(exit_pb, (270, 5))
+	SCREEN.blit(next_pb, (90, 180))
+	SCREEN.blit(vol_down_pb, (150, 180))
+	SCREEN.blit(vol_up_pb, (210, 180))
+	SCREEN.blit(mute_pb, (270, 180))
+
+	SCREEN.blit(exit_pb, (428, 5))
 	SCREEN.blit(radio_icon, (2, 1))
 	pygame.draw.rect(SCREEN, BLUE, (0, 0, 480, 320), 3)
 
@@ -215,6 +223,17 @@ def main():
 				if event.key == K_ESCAPE:
 					sys.exit()
 		time.sleep(0.2)
+
+		_delta = datetime.timedelta(seconds=0)
+		_now = datetime.datetime.today()
+		_dt = str(_now - _delta)
+		clock = _dt[11:16]
+		fontimg = FONT_1.render(clock, 1, RED)
+		SCREEN.fill(BLACK, (5, 232, 469, 85))
+		pygame.display.update()
+		SCREEN.blit(fontimg, (125, 225))
+		pygame.display.update()
+
 	pygame.display.update()
 
 
@@ -230,13 +249,39 @@ CREAM = 254, 255, 25
 BLACK = 0, 0, 0
 WHITE = 255, 255, 255
 YELLOW = 255, 255, 0
-RED = 255, 0, 0
+RED = 245, 0, 0
 GREEN = 0, 255, 0
+BCKG_COLOR = 128, 204, 255
+
+#define button positions
+PLAY_PB_START = 20
+PLAY_PB_END = 80
+PAUSE_PB_START = 80
+PAUSE_PB_END = 80
+REFRESH_PB_START = 428
+REFRESH_PB_END = 80
+PREVIOUS_PB_START = 10
+PREVIOUS_PB_END = 180
+NEXT_PB_START = 90
+NEXT_PB_END = 180
+VOL_DOWN_PB_START = 150
+VOL_DOWN_PB_END = 180
+VOL_UP_PB_START = 210
+VOL_UP_PB_END = 180
+MUTE_PB_START = 270
+MUTE_PB_END = 180
+EXIT_PB_START = 428
+EXIT_PB_END = 5
+RADIO_ICON_START = 2
+RADIO_ICON_END = 2
+
+BCK_CLOCK = "00:00:00"
+FONT = pygame.font.Font(None, 24)
+FONT_1 = pygame.font.Font("fonts/font.ttf", 92)
+
 
 #refresh the menu interface
 refresh_menu_screen()
 #check for key presses and start emergency exit
 main()
-station_name()
-
-
+#station_name()
