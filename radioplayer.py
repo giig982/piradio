@@ -16,47 +16,52 @@ def on_click():
 	"""define function that checks for mouse location"""
 	click_pos = (pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
 	#check to see if exit has been pressed
-	if 428 <= click_pos[0] <= 480 and 10 <= click_pos[1] <= 50:
+	if EXIT_PB_X <= click_pos[0] <= EXIT_PB_X + 50 and \
+	EXIT_PB_Y <= click_pos[1] <= EXIT_PB_Y + 50:
 		print "You pressed exit"
 		button(0)
 	#now check to see if play was pressed
-	if PLAY_PB_START <= click_pos[0] <= (PLAY_PB_START + 50) and \
-	PLAY_PB_END <= click_pos[1] <= (PLAY_PB_END + 50):
+	if PLAY_PB_X <= click_pos[0] <= (PLAY_PB_X + 50) and \
+	PLAY_PB_Y <= click_pos[1] <= (PLAY_PB_Y + 50):
 		print "You pressed button play"
 		button(1)
 	#now check to see if stop  was pressed
-	if PAUSE_PB_START <= click_pos[0] <= (PAUSE_PB_START + 50) and \
-	PAUSE_PB_END <= click_pos[1] <= (PAUSE_PB_END + 50):
+	if PAUSE_PB_X <= click_pos[0] <= (PAUSE_PB_X + 50) and \
+	PAUSE_PB_Y <= click_pos[1] <= (PAUSE_PB_Y + 50):
 		print "You pressed button stop"
 		button(2)
 	#now check to see if refreshed  was pressed
-	if REFRESH_PB_START <= click_pos[0] <= REFRESH_PB_START + 50 and \
-	REFRESH_PB_END <= click_pos[1] <= REFRESH_PB_END + 50:
+	if REFRESH_PB_X <= click_pos[0] <= REFRESH_PB_X + 50 and \
+	REFRESH_PB_Y <= click_pos[1] <= REFRESH_PB_Y + 50:
 		print "You pressed button refresh"
 		button(3)
 	#now check to see if previous  was pressed
-	if PREVIOUS_PB_START <= click_pos[0] <= PREVIOUS_PB_START + 70 and \
-	PREVIOUS_PB_END <= click_pos[1] <= PREVIOUS_PB_END + 50:
+	if PREVIOUS_PB_X <= click_pos[0] <= PREVIOUS_PB_X + 70 and \
+	PREVIOUS_PB_Y <= click_pos[1] <= PREVIOUS_PB_Y + 50:
 		print "You pressed button previous"
 		button(4)
 
 	 #now check to see if next  was pressed
-	if 90 <= click_pos[0] <= 140 and 180 <= click_pos[1] <= 230:
+	if NEXT_PB_X <= click_pos[0] <= NEXT_PB_X + 50 and \
+	NEXT_PB_Y <= click_pos[1] <= NEXT_PB_Y + 50:
 		print "You pressed button next"
 		button(5)
 
 	 #now check to see if volume down was pressed
-	if 150 <= click_pos[0] <= 200 and 180 <= click_pos[1] <= 230:
+	if VOL_DOWN_PB_X <= click_pos[0] <= VOL_DOWN_PB_X + 50 and \
+	VOL_DOWN_PB_Y <= click_pos[1] <= VOL_DOWN_PB_Y + 50:
 		print "You pressed volume down"
 		button(6)
 
 	 #now check to see if button 7 was pressed
-	if 210 <= click_pos[0] <= 260 and 180 <= click_pos[1] <= 230:
+	if VOL_UP_PB_X <= click_pos[0] <= VOL_UP_PB_X + 50 and \
+	VOL_UP_PB_Y <= click_pos[1] <= VOL_UP_PB_Y + 50:
 		print "You pressed volume up"
 		button(7)
 
 	 #now check to see if button 8 was pressed
-	if 270 <= click_pos[0] <= 320 and 180 <= click_pos[1] <= 230:
+	if MUTE_PB_X <= click_pos[0] <= MUTE_PB_X + 50 and \
+	MUTE_PB_Y <= click_pos[1] <= MUTE_PB_Y + 50:
 		print "You pressed mute"
 		button(8)
 
@@ -115,13 +120,10 @@ def refresh_menu_screen():
 	"""refresh screen and draw elements """
 	#set up the fixed items on the menu
 	SCREEN.fill(BCKG_COLOR) #change the colours if needed
-	font = pygame.font.Font(None, 24)
-	title_font = pygame.font.Font(None, 34)
-	station_font = pygame.font.Font(None, 20)
-	label = title_font.render("MPC RADIO", 1, (BLUE))
-	label2 = font.render("Streaming Radio", 1, (RED))
-	SCREEN.blit(label, (105, 15))
-	SCREEN.blit(label2, (115, 45))
+	label = TITLE_FONT.render("MPC RADIO", 1, (BLUE))
+	label2 = FONT.render("Streaming Radio", 1, (RED))
+	SCREEN.blit(label, (165, 15))
+	SCREEN.blit(label2, (165, 45))
 
 
 	play_pb = pygame.image.load("play.tiff")
@@ -136,22 +138,22 @@ def refresh_menu_screen():
 	radio_icon = pygame.image.load("radio.tiff")
 
 	# draw the main elements on the screen
-	SCREEN.blit(play_pb, (20, 80))
-	SCREEN.blit(pause_pb, (80, 80))
-	#pygame.draw.rect(SCREEN, RED, (8, 70, 304, 108), 1)
+	SCREEN.blit(play_pb, (PLAY_PB_X, PLAY_PB_Y))
+	SCREEN.blit(pause_pb, (PAUSE_PB_X, PAUSE_PB_Y))
+
 	pygame.draw.rect(SCREEN, RED, (8, 70, 464, 108), 1)
 	pygame.draw.line(SCREEN, RED, (8, 142), (470, 142), 1)
 	pygame.draw.rect(SCREEN, YELLOW, (10, 143, 460, 33), 0)
-	SCREEN.blit(refresh_pb, (430, 70))
+	SCREEN.blit(refresh_pb, (REFRESH_PB_X, REFRESH_PB_Y))
 
-	SCREEN.blit(previous_pb, (10, 180))
-	SCREEN.blit(next_pb, (90, 180))
-	SCREEN.blit(vol_down_pb, (150, 180))
-	SCREEN.blit(vol_up_pb, (210, 180))
-	SCREEN.blit(mute_pb, (270, 180))
+	SCREEN.blit(previous_pb, (PREVIOUS_PB_X, PREVIOUS_PB_Y))
+	SCREEN.blit(next_pb, (NEXT_PB_X, NEXT_PB_Y))
+	SCREEN.blit(vol_down_pb, (VOL_DOWN_PB_X, VOL_DOWN_PB_Y))
+	SCREEN.blit(vol_up_pb, (VOL_UP_PB_X, VOL_UP_PB_Y))
+	SCREEN.blit(mute_pb, (MUTE_PB_X, MUTE_PB_Y))
 
-	SCREEN.blit(exit_pb, (428, 5))
-	SCREEN.blit(radio_icon, (2, 1))
+	SCREEN.blit(exit_pb, (EXIT_PB_X, EXIT_PB_Y))
+	SCREEN.blit(radio_icon, (RADIO_ICON_X, RADIO_ICON_Y))
 	pygame.draw.rect(SCREEN, BLUE, (0, 0, 480, 320), 3)
 
 	##### display the station name and split it into 2 parts :
@@ -176,10 +178,10 @@ def refresh_menu_screen():
 	else:
 		station_status = "playing"
 		status_font = GREEN
-	station_name = station_font.render(line1, 1, (RED))
-	additional_data = station_font.render(line2, 1, (BLUE))
-	station_label = title_font.render(station_status, 1, (status_font))
-	SCREEN.blit(station_label, (175, 100))
+	station_name = STATION_FONT.render(line1, 1, (RED))
+	additional_data = STATION_FONT.render(line2, 1, (BLUE))
+	station_label = TITLE_FONT.render(station_status, 1, (status_font))
+	SCREEN.blit(station_label, (175, 110))
 	SCREEN.blit(station_name, (13, 145))
 	SCREEN.blit(additional_data, (12, 160))
 
@@ -187,7 +189,7 @@ def refresh_menu_screen():
 	volume = subprocess.check_output("mpc volume", shell=True)
 	volume = volume[8:]
 	volume = volume[:-1]
-	volume_tag = font.render(volume, 1, (BLACK))
+	volume_tag = FONT.render(volume, 1, (BLACK))
 	SCREEN.blit(volume_tag, (175, 75))
 
 	####### check to see if the Radio is connected to the internet
@@ -201,7 +203,7 @@ def refresh_menu_screen():
 		network_status = "offline"
 		status_font = RED
 
-	network_status_label = font.render(network_status, 1, (status_font))
+	network_status_label = FONT.render(network_status, 1, (status_font))
 	SCREEN.blit(network_status_label, (215, 75))
 	pygame.display.flip()
 
@@ -231,7 +233,7 @@ def main():
 		fontimg = FONT_1.render(clock, 1, RED)
 		SCREEN.fill(BLACK, (5, 232, 469, 85))
 		pygame.display.update()
-		SCREEN.blit(fontimg, (125, 225))
+		SCREEN.blit(fontimg, (CLOCK_X, CLOCK_Y))
 		pygame.display.update()
 
 	pygame.display.update()
@@ -254,31 +256,35 @@ GREEN = 0, 255, 0
 BCKG_COLOR = 128, 204, 255
 
 #define button positions
-PLAY_PB_START = 20
-PLAY_PB_END = 80
-PAUSE_PB_START = 80
-PAUSE_PB_END = 80
-REFRESH_PB_START = 428
-REFRESH_PB_END = 80
-PREVIOUS_PB_START = 10
-PREVIOUS_PB_END = 180
-NEXT_PB_START = 90
-NEXT_PB_END = 180
-VOL_DOWN_PB_START = 150
-VOL_DOWN_PB_END = 180
-VOL_UP_PB_START = 210
-VOL_UP_PB_END = 180
-MUTE_PB_START = 270
-MUTE_PB_END = 180
-EXIT_PB_START = 428
-EXIT_PB_END = 5
-RADIO_ICON_START = 2
-RADIO_ICON_END = 2
+PLAY_PB_X = 20
+PLAY_PB_Y = 80
+PAUSE_PB_X = 80
+PAUSE_PB_Y = 80
+REFRESH_PB_X = 425
+REFRESH_PB_Y = 80
+PREVIOUS_PB_X = 10
+PREVIOUS_PB_Y = 180
+NEXT_PB_X = 90
+NEXT_PB_Y = 180
+VOL_DOWN_PB_X = 190
+VOL_DOWN_PB_Y = 180
+VOL_UP_PB_X = 415
+VOL_UP_PB_Y = 180
+MUTE_PB_X = 300
+MUTE_PB_Y = 180
+EXIT_PB_X = 428
+EXIT_PB_Y = 10
+RADIO_ICON_X = 7
+RADIO_ICON_Y = 2
+CLOCK_X = 130
+CLOCK_Y = 225
 
 BCK_CLOCK = "00:00:00"
 FONT = pygame.font.Font(None, 24)
 FONT_1 = pygame.font.Font("fonts/font.ttf", 92)
-
+TITLE_FONT = pygame.font.Font(None, 34)
+STATION_FONT = pygame.font.Font(None, 20)
+	
 
 #refresh the menu interface
 refresh_menu_screen()
