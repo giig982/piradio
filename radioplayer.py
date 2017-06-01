@@ -77,8 +77,8 @@ def button(number):
 	print "You pressed button ", number
 	if number == 0:    #specific script when exiting
 		SCREEN.fill(BLACK)
-        	label = FONT.render("Radioplayer will continue in background", 1, (WHITE))
-        	SCREEN.blit(label, (30, 130))
+		label = FONT.render("Radioplayer will continue in background", 1, (WHITE))
+		SCREEN.blit(label, (30, 130))
 		pygame.display.flip()
 		time.sleep(3)
 		sys.exit()
